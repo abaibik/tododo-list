@@ -1,5 +1,14 @@
+:root {
+  --background-main : #343F71;
+  --text-main: #E9D8E4;
+
+} 
+
 * {
-  background-color: #343F71;
-  color: #E9D8E4;
+  background-color: var(--background-main);
+  color: var(--text-main);
   font-family: 'Lato', sans-serif;
+  --bs-list-group-bg: var(--background-main);
+  --bs-list-group-color: var(--text-main);
+  --bs-modal-footer-bg: var(--background-main);
 }
