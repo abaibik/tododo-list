@@ -1,6 +1,7 @@
 :root {
   --background-main : #343F71;
   --text-main: #E9D8E4;
+  --gap-main: 10em
 
 } 
 
@@ -11,4 +12,9 @@
   --bs-list-group-bg: var(--background-main);
   --bs-list-group-color: var(--text-main);
   --bs-modal-footer-bg: var(--background-main);
+}
+
+.heading-with-logo {
+  display: flex;
+  gap: var(--gap-main)
 }
