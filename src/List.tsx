@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Row, Col, Button, ListGroup, Form, Modal } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
+import { ModalAddItem } from "./ModalAddItem";
 
 export function List() {
   const [showModal, setShowModal] = useState(false);
@@ -9,20 +10,7 @@ export function List() {
 
   return (
     <Container className="mt-5">
-      <Modal show={showModal} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Add item</Modal.Title>
-        </Modal.Header>
-        <Modal.Body></Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="warning" onClick={handleClose}>
-            Add item
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <ModalAddItem visible={showModal} onClose={handleClose} />
       <Row>
         <Col>
           <ListGroup>
