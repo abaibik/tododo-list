@@ -2,7 +2,8 @@
   --background-main : #343F71;
   --text-light: #E9D8E4;
   --text-yellow: #FBC40E;
-  --gap-main: 3em
+  --gap-main: 3em;
+  --text-checked: #f34c1996;
 
 } 
 
@@ -18,4 +19,9 @@
 .heading-with-logo {
   display: flex;
   gap: var(--gap-main)
+}
+
+.checked-item > label {
+  --text-light: var(--text-checked);
+  text-decoration: line-through;
 }
