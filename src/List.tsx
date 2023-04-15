@@ -8,11 +8,12 @@ export function List() {
   const [showModal, setShowModal] = useState(false);
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
+
+  const [items, setItems] = useState(["Buy some food", "Feed cats"]);
   const handleAdd = (text: string) => {
+    setItems([...items, text]);
     handleClose();
   };
-
-  const items = ["Buy some food", "Feed cats"];
 
   return (
     <Container className="mt-5">
