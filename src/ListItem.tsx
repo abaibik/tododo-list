@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import { Form, ListGroup } from "react-bootstrap";
 
 type ListItemProps = {
   label: string;
+  checked: boolean;
+  onChange: (checked: boolean) => any;
 };
 
-export const ListItem: React.FC<ListItemProps> = ({ label }) => {
-  const [checked, setChecked] = useState(false);
-
+export const ListItem: React.FC<ListItemProps> = ({
+  label,
+  checked,
+  onChange,
+}) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(event.target.checked);
+    onChange(event.target.checked);
   };
 
   const className = checked ? "checked-item" : "";
