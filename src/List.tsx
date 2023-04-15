@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Row, Col, Button, ListGroup, Form } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import { ModalAddItem } from "./ModalAddItem";
+import { ListItem } from "./ListItem";
 
 export function List() {
   const [showModal, setShowModal] = useState(false);
@@ -21,12 +22,8 @@ export function List() {
       <Row>
         <Col>
           <ListGroup>
-            <ListGroup.Item>
-              <Form.Check inline label="Buy the food" />
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <Form.Check inline label="Feed cats" />
-            </ListGroup.Item>
+            <ListItem label="Buy some food" />
+            <ListItem label="Feed cats" />
           </ListGroup>
         </Col>
         <Col>
