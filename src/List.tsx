@@ -12,6 +12,8 @@ export function List() {
     handleClose();
   };
 
+  const items = ["Buy some food", "Feed cats"];
+
   return (
     <Container className="mt-5">
       <ModalAddItem
@@ -22,8 +24,9 @@ export function List() {
       <Row>
         <Col>
           <ListGroup>
-            <ListItem label="Buy some food" />
-            <ListItem label="Feed cats" />
+            {items.map((item) => (
+              <ListItem key={item} label={item} />
+            ))}
           </ListGroup>
         </Col>
         <Col>
