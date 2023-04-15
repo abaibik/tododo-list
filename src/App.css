@@ -1,16 +1,17 @@
 :root {
   --background-main : #343F71;
-  --text-main: #E9D8E4;
-  --gap-main: 10em
+  --text-light: #E9D8E4;
+  --text-yellow: #FBC40E;
+  --gap-main: 3em
 
 } 
 
 * {
   background-color: var(--background-main);
-  color: var(--text-main);
+  color: var(--text-light);
   font-family: 'Lato', sans-serif;
   --bs-list-group-bg: var(--background-main);
-  --bs-list-group-color: var(--text-main);
+  --bs-list-group-color: var(--text-light);
   --bs-modal-footer-bg: var(--background-main);
 }
 
