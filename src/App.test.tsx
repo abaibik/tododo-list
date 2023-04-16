@@ -32,4 +32,16 @@ describe("Tododo-list", () => {
 
     expect(item).toBeInTheDocument();
   });
+
+  test("schould mark as done", async () => {
+    const checkbox = screen.getByRole("checkbox", { name: /feed cats/i });
+
+    await user.click(checkbox);
+
+    expect(checkbox).toBeChecked();
+
+    const lastItem = screen.getByTestId("listTestId").lastChild;
+
+    expect(lastItem).toHaveTextContent(/feed cats/i);
+  });
 });

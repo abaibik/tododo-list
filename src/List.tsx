@@ -11,7 +11,11 @@ type ToDoItem = {
   id: string;
 };
 
-export function List() {
+type ListProps = {
+  dataTestId: string;
+};
+
+export const List: React.FC<ListProps> = ({ dataTestId }) => {
   const [showModal, setShowModal] = useState(false);
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
@@ -47,10 +51,11 @@ export function List() {
       />
       <Row>
         <Col>
-          <ListGroup>
+          <ListGroup data-testid={dataTestId}>
             {uncheckedItems.map((item) => (
               <ListItem
-                key={item.text}
+                id={item.id}
+                key={item.id}
                 label={item.text}
                 checked={item.done}
                 onChange={(checked) => {
@@ -61,7 +66,8 @@ export function List() {
 
             {checkedItems.map((item) => (
               <ListItem
-                key={item.text}
+                id={item.id}
+                key={item.id}
                 label={item.text}
                 checked={item.done}
                 onChange={(checked) => {
@@ -79,4 +85,4 @@ export function List() {
       </Row>
     </Container>
   );
-}
+};

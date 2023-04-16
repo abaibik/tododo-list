@@ -5,12 +5,14 @@ type ListItemProps = {
   label: string;
   checked: boolean;
   onChange: (checked: boolean) => any;
+  id: string;
 };
 
 export const ListItem: React.FC<ListItemProps> = ({
   label,
   checked,
   onChange,
+  id,
 }) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChange(event.target.checked);
@@ -25,6 +27,7 @@ export const ListItem: React.FC<ListItemProps> = ({
         onChange={handleChange}
         inline
         label={label}
+        id={id}
         className={className}
       />
     </ListGroup.Item>

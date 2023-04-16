@@ -15,7 +15,7 @@ function App() {
           </div>
         </div>
 
-        <List />
+        <List dataTestId="listTestId" />
       </Container>
     </div>
   );
