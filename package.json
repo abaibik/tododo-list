@@ -5,7 +5,6 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
     "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/user-event": "^14.4.3",
     "@types/jest": "^27.5.2",
     "@types/node": "^17.0.45",
     "@types/react": "^18.0.33",
@@ -31,7 +30,15 @@
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "rules": {
+      "testing-library/no-render-in-setup": [
+        "error",
+        {
+          "allowTestingFrameworkSetupHook": "beforeEach"
+        }
+      ]
+    }
   },
   "browserslist": {
     "production": [
@@ -46,6 +53,7 @@
     ]
   },
   "devDependencies": {
-    "@testing-library/react": "^14.0.0"
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3"
   }
 }

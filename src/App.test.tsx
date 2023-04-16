@@ -1,15 +1,35 @@
 import React from "react";
-import { render } from "@testing-library/react";
-import { Provider } from "react-redux";
-import { store } from "./app/store";
+import { render, screen } from "@testing-library/react";
 import App from "./App";
+import userEvent from "@testing-library/user-event";
 
-test("renders learn react link", () => {
-  const { getByText } = render(
-    <Provider store={store}>
-      <App />
-    </Provider>
-  );
+describe("Tododo-list", () => {
+  let user: ReturnType<typeof userEvent.setup>;
+  beforeEach(() => {
+    user = userEvent.setup();
+    render(<App />);
+  });
 
-  expect(getByText(/learn/i)).toBeInTheDocument();
+  test("schould add list item", async () => {
+    const buttonAddItem = screen.getByRole("button", {
+      name: /add new item/i,
+    });
+
+    await user.click(buttonAddItem);
+
+    const addItemInput = screen.getByRole("textbox");
+
+    await user.type(addItemInput, "make laundry");
+    expect(addItemInput).toHaveValue("make laundry");
+
+    const buttonSubmit = screen.getByRole("button", {
+      name: /add item/i,
+    });
+
+    await user.click(buttonSubmit);
+
+    const item = screen.queryByText("make laundry");
+
+    expect(item).toBeInTheDocument();
+  });
 });

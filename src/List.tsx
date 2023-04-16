@@ -73,7 +73,7 @@ export function List() {
         </Col>
         <Col>
           <Button variant="outline-warning" onClick={handleShow}>
-            Add item
+            Add new item
           </Button>
         </Col>
       </Row>
