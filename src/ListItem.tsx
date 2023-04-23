@@ -1,5 +1,12 @@
 import React from "react";
 import { Form, ListGroup } from "react-bootstrap";
+import deleteIcon from "./images/icons8-close.svg";
+import "./App.css";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Button from "react-bootstrap/Button";
+import Tooltip from "react-bootstrap/Tooltip";
+
+//Close icon by https://icons8.com
 
 type ListItemProps = {
   label: string;
@@ -18,18 +25,44 @@ export const ListItem: React.FC<ListItemProps> = ({
     onChange(event.target.checked);
   };
 
+  const handleDelete = () => {};
+
   const className = checked ? "checked-item" : "";
 
   return (
     <ListGroup.Item>
-      <Form.Check
-        checked={checked}
-        onChange={handleChange}
-        inline
-        label={label}
-        id={id}
-        className={className}
-      />
+      <div className="list-item-group-flex">
+        <Form.Check
+          checked={checked}
+          onChange={handleChange}
+          inline
+          label={label}
+          id={id}
+          className={className}
+        />
+        <OverlayTrigger
+          placement="left"
+          overlay={
+            <Tooltip id="button-delete-tooltip">Delete from the list</Tooltip>
+          }
+        >
+          {({ ref, ...triggerHandler }) => (
+            <Button
+              variant="link"
+              {...triggerHandler}
+              className="d-inline-flex align-items-center"
+              onClick={handleDelete}
+            >
+              <img
+                alt="delete button"
+                className="delete-icon"
+                src={deleteIcon}
+                ref={ref}
+              />
+            </Button>
+          )}
+        </OverlayTrigger>
+      </div>
     </ListGroup.Item>
   );
 };

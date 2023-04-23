@@ -25,3 +25,11 @@
   --text-light: var(--text-checked);
   text-decoration: line-through;
 }
+
+.list-item-group-flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+
