@@ -13,6 +13,7 @@ type ListItemProps = {
   checked: boolean;
   onChange: (checked: boolean) => any;
   id: string;
+  onDelete: () => any;
 };
 
 export const ListItem: React.FC<ListItemProps> = ({
@@ -20,14 +21,13 @@ export const ListItem: React.FC<ListItemProps> = ({
   checked,
   onChange,
   id,
+  onDelete,
 }) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChange(event.target.checked);
   };
 
-  const handleDelete = () => {};
-
-  const className = checked ? "checked-item" : "";
+  const checkedClassName = checked ? "checked-item" : "";
 
   return (
     <ListGroup.Item>
@@ -38,7 +38,7 @@ export const ListItem: React.FC<ListItemProps> = ({
           inline
           label={label}
           id={id}
-          className={className}
+          className={checkedClassName}
         />
         <OverlayTrigger
           placement="left"
@@ -51,7 +51,7 @@ export const ListItem: React.FC<ListItemProps> = ({
               variant="link"
               {...triggerHandler}
               className="d-inline-flex align-items-center"
-              onClick={handleDelete}
+              onClick={onDelete}
             >
               <img
                 alt="delete button"

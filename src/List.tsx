@@ -42,6 +42,12 @@ export const List: React.FC<ListProps> = ({ dataTestId }) => {
     setItems([...itemsWithoutCurrent, { ...currentItem, done: checked }]);
   };
 
+  const handleDelete = (id: string) => {
+    const itemsWithoutCurrent = items.filter((item) => item.id !== id);
+
+    setItems(itemsWithoutCurrent);
+  };
+
   return (
     <Container className="mt-5">
       <ModalAddItem
@@ -61,6 +67,9 @@ export const List: React.FC<ListProps> = ({ dataTestId }) => {
                 onChange={(checked) => {
                   handleChange(checked, item.id);
                 }}
+                onDelete={() => {
+                  handleDelete(item.id);
+                }}
               />
             ))}
 
@@ -72,6 +81,9 @@ export const List: React.FC<ListProps> = ({ dataTestId }) => {
                 checked={item.done}
                 onChange={(checked) => {
                   handleChange(checked, item.id);
+                }}
+                onDelete={() => {
+                  handleDelete(item.id);
                 }}
               />
             ))}
