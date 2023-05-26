@@ -78,33 +78,6 @@ test("ListItem call onChange when input clicked", async () => {
   expect(onChange).toHaveBeenCalledWith(true);
 });
 
-// describe("ListItem", () => {
-//   let user: ReturnType<typeof userEvent.setup>;
-//   const onChange = jest.fn();
-//   let checked: boolean;
-//   const input = screen.getByRole("checkbox");
-//   beforeEach(() => {
-//     user = userEvent.setup();
-
-//   });
-//   it.each([[false, "unchecked", true]])(
-//     "call onChange  with ${result} when was ${was}",async
-//     (checked: boolean, was: string, result: boolean) => {
-//       render(
-//       <ListItem
-//         label="cook lunch"
-//         checked={checked}
-//         onChange={onChange}
-//         onDelete={() => {}}
-//         id="1"
-//       />
-//     );
-//       await user.click(input);
-//       expect(onChange).toHaveBeenCalledWith(result);
-//     }
-//   );
-// });
-
 test.each`
   checked  | was            | result
   ${false} | ${"unchecked"} | ${true}
