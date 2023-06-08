@@ -9,8 +9,9 @@ class CreateItemRequest(BaseModel):
     text: str
 
 
-class UpdateItemRequest(CreateItemRequest):
-    done: bool
+class UpdateItemRequest(BaseModel):
+    text: str | None
+    done: bool | None
 
 
 class Item(BaseModel):
@@ -24,7 +25,7 @@ app = FastAPI()
 item_store: dict[str, Item] = dict()
 
 
-@app.post("/items")
+@app.post("/items", status_code=201)
 def create_item(new_item: CreateItemRequest) -> Item:
     id = str(uuid.uuid4())
     item = Item(id=id, text=new_item.text, done=False)
@@ -34,17 +35,20 @@ def create_item(new_item: CreateItemRequest) -> Item:
 
 @app.get("/items")
 def get_all() -> list[Item]:
-    return item_store.values()
+    return list(item_store.values())
 
 
 @app.patch("/items/{item_id}")
 def update_item(item_id: str, new_item: UpdateItemRequest) -> Item:
     item = item_store[item_id]
-    item.text = new_item.text
-    item.done = new_item.done
+    if new_item.text:
+        item.text = new_item.text
+    if new_item.done:
+        item.done = new_item.done
     return item
 
 
-@app.delete("/items/{item_id}")
+@app.delete("/items/{item_id}", status_code=204)
 def delete_item(item_id: str):
-    del item_store[item_id]
+    if item_id in item_store:
+        del item_store[item_id]
