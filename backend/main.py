@@ -1,8 +1,14 @@
 from typing import Union
 import uuid
 
-from fastapi import FastAPI
+from fastapi import FastAPI, APIRouter
 from pydantic import BaseModel
+
+from fastapi.staticfiles import StaticFiles
+
+from pathlib import Path
+
+import uvicorn
 
 
 class CreateItemRequest(BaseModel):
@@ -22,10 +28,15 @@ class Item(BaseModel):
 
 app = FastAPI()
 
+frontend_files = Path(__file__).parent.parent / "build"
+
+
 item_store: dict[str, Item] = dict()
 
+router = APIRouter()
 
-@app.post("/items", status_code=201)
+
+@router.post("/items", status_code=201)
 def create_item(new_item: CreateItemRequest) -> Item:
     id = str(uuid.uuid4())
     item = Item(id=id, text=new_item.text, done=False)
@@ -33,12 +44,12 @@ def create_item(new_item: CreateItemRequest) -> Item:
     return item
 
 
-@app.get("/items")
+@router.get("/items")
 def get_all() -> list[Item]:
     return list(item_store.values())
 
 
-@app.patch("/items/{item_id}")
+@router.patch("/items/{item_id}")
 def update_item(item_id: str, new_item: UpdateItemRequest) -> Item:
     item = item_store[item_id]
     if new_item.text:
@@ -48,7 +59,16 @@ def update_item(item_id: str, new_item: UpdateItemRequest) -> Item:
     return item
 
 
-@app.delete("/items/{item_id}", status_code=204)
+@router.delete("/items/{item_id}", status_code=204)
 def delete_item(item_id: str):
     if item_id in item_store:
         del item_store[item_id]
+
+
+api_app = FastAPI(title="API")
+api_app.include_router(router)
+app.mount("/api", api_app)
+app.mount("/", StaticFiles(directory=frontend_files, html=True), name="static")
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
