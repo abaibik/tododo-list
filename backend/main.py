@@ -31,7 +31,10 @@ app = FastAPI()
 frontend_files = Path(__file__).parent.parent / "build"
 
 
-item_store: dict[str, Item] = dict()
+item_store: dict[str, Item] = {
+    "1": Item(text="Buy some food", done=False, id="1"),
+    "2": Item(text="Feed cats", done=False, id="2"),
+}
 
 router = APIRouter()
 
