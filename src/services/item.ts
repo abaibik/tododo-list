@@ -34,6 +34,13 @@ export const itemsApi = createApi({
         invalidatesTags: ["Items"],
       }
     ),
+    deleteItem: builder.mutation<void, { id: string }>({
+      query: ({ id }) => ({
+        url: `/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Items"],
+    }),
   }),
 });
 
@@ -43,4 +50,5 @@ export const {
   useGetAllItemsQuery,
   useAddListItemMutation,
   useChangeDoneStatusMutation,
+  useDeleteItemMutation,
 } = itemsApi;

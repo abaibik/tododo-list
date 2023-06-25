@@ -7,6 +7,7 @@ import {
   useGetAllItemsQuery,
   useAddListItemMutation,
   useChangeDoneStatusMutation,
+  useDeleteItemMutation,
 } from "./services/item";
 
 export type ToDoItem = {
@@ -23,6 +24,7 @@ export const List: React.FC<ListProps> = ({ dataTestId }) => {
   const { data: items, error, isLoading } = useGetAllItemsQuery();
   const [addNewListItem] = useAddListItemMutation();
   const [changeDoneStatus] = useChangeDoneStatusMutation();
+  const [deleteItem] = useDeleteItemMutation();
 
   const [showModal, setShowModal] = useState(false);
   const handleClose = () => setShowModal(false);
@@ -49,9 +51,7 @@ export const List: React.FC<ListProps> = ({ dataTestId }) => {
   };
 
   const handleDelete = (id: string) => {
-    const itemsWithoutCurrent = items.filter((item) => item.id !== id);
-
-    //  setItems(itemsWithoutCurrent);
+    deleteItem({ id });
   };
 
   return (
