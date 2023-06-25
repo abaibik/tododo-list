@@ -12,7 +12,14 @@ def test_get_all_items(client):
     response = client.get("/api/items")
 
     assert response.status_code == 200
-    assert response.json() == []
+    assert response.json() == [
+        {"text": "Buy some food", "done": False, "id": "1"},
+        {
+            "text": "Feed cats",
+            "done": False,
+            "id": "2",
+        },
+    ]
 
 
 @pytest.fixture
@@ -37,6 +44,13 @@ def test_mark_item_done(client, item):
     response_data = response.json()
     assert response_data["text"] == item["text"]
     assert response_data["done"] == True
+    assert response_data["id"] == item_id
+
+    response = client.patch(f"/api/items/{item_id}", json={"done": False})
+    assert response.status_code == 200
+    response_data = response.json()
+    assert response_data["text"] == item["text"]
+    assert response_data["done"] == False
     assert response_data["id"] == item_id
 
 

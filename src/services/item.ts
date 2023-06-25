@@ -21,9 +21,26 @@ export const itemsApi = createApi({
       }),
       invalidatesTags: ["Items"],
     }),
+    changeDoneStatus: builder.mutation<ToDoItem, { id: string; done: boolean }>(
+      {
+        query: ({ id, done }) => ({
+          url: `/${id}`,
+          method: "PATCH",
+          body: { done },
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        }),
+        invalidatesTags: ["Items"],
+      }
+    ),
   }),
 });
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetAllItemsQuery, useAddListItemMutation } = itemsApi;
+export const {
+  useGetAllItemsQuery,
+  useAddListItemMutation,
+  useChangeDoneStatusMutation,
+} = itemsApi;

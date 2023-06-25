@@ -3,7 +3,11 @@ import { Row, Col, Button, ListGroup } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import { ModalAddItem } from "./ModalAddItem";
 import { ListItem } from "./ListItem";
-import { useGetAllItemsQuery, useAddListItemMutation } from "./services/item";
+import {
+  useGetAllItemsQuery,
+  useAddListItemMutation,
+  useChangeDoneStatusMutation,
+} from "./services/item";
 
 export type ToDoItem = {
   text: string;
@@ -18,6 +22,7 @@ type ListProps = {
 export const List: React.FC<ListProps> = ({ dataTestId }) => {
   const { data: items, error, isLoading } = useGetAllItemsQuery();
   const [addNewListItem] = useAddListItemMutation();
+  const [changeDoneStatus] = useChangeDoneStatusMutation();
 
   const [showModal, setShowModal] = useState(false);
   const handleClose = () => setShowModal(false);
@@ -40,12 +45,7 @@ export const List: React.FC<ListProps> = ({ dataTestId }) => {
   const checkedItems = items.filter((item) => item.done);
 
   const handleChange = (checked: boolean, id: string) => {
-    const currentItemIdx = items.findIndex((el) => el.id === id);
-    const currentItem = items[currentItemIdx];
-    const itemsWithoutCurrent = items.filter(
-      (item, index) => index !== currentItemIdx
-    );
-    // setItems([...itemsWithoutCurrent, { ...currentItem, done: checked }]);
+    changeDoneStatus({ id, done: checked });
   };
 
   const handleDelete = (id: string) => {

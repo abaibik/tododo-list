@@ -57,7 +57,7 @@ def update_item(item_id: str, new_item: UpdateItemRequest) -> Item:
     item = item_store[item_id]
     if new_item.text:
         item.text = new_item.text
-    if new_item.done:
+    if new_item.done is not None:
         item.done = new_item.done
     return item
 
