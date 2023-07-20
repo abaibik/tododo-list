@@ -35,9 +35,11 @@ describe("Tododo-list", () => {
 
     await user.click(buttonSubmit);
 
-    const item = screen.queryByText("make laundry");
+    await waitFor(() => {
+      const item = screen.queryByText("make laundry");
 
-    expect(item).toBeInTheDocument();
+      expect(item).toBeInTheDocument();
+    });
   });
 
   test("schould mark as done", async () => {

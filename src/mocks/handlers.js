@@ -14,14 +14,12 @@ const items = [
 ];
 
 export const handlers = [
-  rest.post("/api/items", (req, res, ctx) => {
-    return res(
-      ctx.json({
-        text: "cook lunch",
-        done: false,
-        id: "1",
-      })
-    );
+  rest.post("/api/items", async (req, res, ctx) => {
+    const reqParams = await req.json();
+    const item = { ...reqParams, id: items.length + 1 };
+    items.push(item);
+
+    return res(ctx.json(item));
   }),
 
   rest.patch("/api/items/1", (req, res, ctx) => {
