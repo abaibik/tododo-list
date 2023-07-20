@@ -1,18 +1,24 @@
 /* eslint-disable testing-library/no-node-access */
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import App from "./App";
 import userEvent from "@testing-library/user-event";
+import { Provider } from "react-redux";
+import { store } from "./app/store";
 
 describe("Tododo-list", () => {
   let user: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {
     user = userEvent.setup();
-    render(<App />);
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
   });
 
   test("schould add list item", async () => {
-    const buttonAddItem = screen.getByRole("button", {
+    const buttonAddItem = await screen.findByRole("button", {
       name: /add new item/i,
     });
 
@@ -35,11 +41,19 @@ describe("Tododo-list", () => {
   });
 
   test("schould mark as done", async () => {
-    const checkbox = screen.getByRole("checkbox", { name: /feed cats/i });
+    const checkbox = await screen.findByRole("checkbox", {
+      name: /feed cats/i,
+    });
 
     await user.click(checkbox);
 
-    expect(checkbox).toBeChecked();
+    await waitFor(async () => {
+      //now we schould find the checkbox in the list of checked items below
+      const checkbox = await screen.findByRole("checkbox", {
+        name: /feed cats/i,
+      });
+      expect(checkbox).toBeChecked();
+    });
 
     const lastItem = screen.getByTestId("listTestId").lastChild;
 
